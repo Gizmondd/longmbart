@@ -129,7 +129,7 @@ class SimplificationDataset(Dataset):
             output_ids = torch.cat([output_ids[1:], output_ids[:1]])
 
         # Mask some input ids
-        input_ids = self.mask_sentence(input_ids)
+        self.mask_sentence(input_ids)
         
         return input_ids, output_ids
 
