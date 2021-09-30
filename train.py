@@ -127,7 +127,17 @@ class SimplificationDataset(Dataset):
         if self.tags_included: # move language tag to the end of the sequence in source, also in target (so we can use mbarts shift_tokens_right that takes padding into account)
             input_ids = torch.cat([input_ids[1:], input_ids[:1]])
             output_ids = torch.cat([output_ids[1:], output_ids[:1]])
+
+        # Mask some input ids
+        input_ids = self.mask_sentence(input_ids)
+        
         return input_ids, output_ids
+
+    @staticmethod
+    def mask_sentence(input_ids):
+        for idx in range(len(input_ids)):
+            if random.random() <= 0.25:
+                input_ids[idx] = 25029
 
     @staticmethod
     def collate_fn(batch):
