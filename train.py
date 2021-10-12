@@ -135,9 +135,14 @@ class SimplificationDataset(Dataset):
 
     @staticmethod
     def mask_sentence(input_ids):
+        # Replace with mask token id with a 25% chance
         for idx in range(len(input_ids)):
             if random.random() <= 0.25:
                 input_ids[idx] = 25029
+        
+        # Set the language tag to generic de_DE tag
+        input_ids[-1] = 25006
+
 
     @staticmethod
     def collate_fn(batch):
