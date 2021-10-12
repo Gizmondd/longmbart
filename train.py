@@ -375,7 +375,7 @@ class Simplifier(pl.LightningModule):
         parser.add_argument("--batch_size", type=int, default=16, help="Batch size")
         parser.add_argument("--num_workers", type=int, default=0, help="Number of data loader workers")
         parser.add_argument("--grad_accum", type=int, default=1, help="Number of gradient accumulation steps.")
-        parser.add_argument("--gpu_select", type=str, default=None, help="GPU selector. None for CPU")
+        parser.add_argument("--gpus", type=str, default=None, help="GPU selector. None for CPU")
         parser.add_argument("--seed", type=int, default=1234, help="Seed")
         
         ## model params:
@@ -464,7 +464,7 @@ def main(args):
         mode=model.lr_mode,
         prefix='')
 
-    trainer = pl.Trainer(gpus=args.gpu_select, distributed_backend='ddp' if torch.cuda.is_available() else None,
+    trainer = pl.Trainer(gpus=args.gpus, distributed_backend='ddp' if torch.cuda.is_available() else None,
                          track_grad_norm=-1,
                          max_epochs=args.max_epochs if not args.debug else 100,
                          max_steps=None if not args.debug else 1,
