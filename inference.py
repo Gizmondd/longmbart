@@ -271,7 +271,7 @@ class InferenceSimplifier(pl.LightningModule):
 
         parser.add_argument("--batch_size", type=int, default=16, help="Batch size")
         parser.add_argument("--num_workers", type=int, default=0, help="Number of data loader workers")
-        parser.add_argument("--gpus", type=int, default=-1, help="Number of gpus. 0 for CPU")
+        parser.add_argument("--gpu_select", type=str, default=None, help="GPU selector. None for CPU")
         
         ## inference params
         parser.add_argument("--translation", type=str, default='decoded.out', help="Output file to write decoded sequence to.")
