@@ -347,7 +347,7 @@ def main(args):
         version=0  # always use version=0
     )
 
-    trainer = pl.Trainer(gpus=args.gpus, distributed_backend='ddp' if torch.cuda.is_available() else None,
+    trainer = pl.Trainer(gpus=args.gpu_select, distributed_backend='ddp' if torch.cuda.is_available() else None,
                          replace_sampler_ddp=False,
                          limit_test_batches=args.test_percent_check,
                          logger=logger,
